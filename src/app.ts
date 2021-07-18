@@ -1,27 +1,27 @@
-import express from 'express'
-import { ApolloServer, gql } from 'apollo-server-express'
-
+import 'reflect-metadata'
+import Express from 'express'
+import { ApolloServer } from 'apollo-server-express'
+import { buildSchema, Query, Resolver } from 'type-graphql'
 import { PORT } from './helpers/constants'
 
-async function startApolloServer() {
-  // Construct a schema, using GraphQL schema language
-  const typeDefs = gql`
-    type Query {
-      hello: String
-    }
-  `
-
-  // Provide resolver functions for your schema fields
-  const resolvers = {
-    Query: {
-      hello: () => 'Hello world!',
-    },
+@Resolver()
+export class HelloResolver {
+  // @ts-ignore
+  @Query(() => String)
+  hello() {
+    return 'Hello sunshine'
   }
+}
 
-  const server = new ApolloServer({ typeDefs, resolvers })
+const main = async () => {
+  const schema = await buildSchema({
+    resolvers: [HelloResolver],
+  })
+
+  const server = new ApolloServer({ schema })
   await server.start()
 
-  const app = express()
+  const app = Express()
   server.applyMiddleware({ app })
 
   await app.listen({ port: PORT }, () =>
@@ -33,4 +33,4 @@ async function startApolloServer() {
   return { server, app }
 }
 
-startApolloServer()
+main()
