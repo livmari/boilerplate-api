@@ -1,7 +1,7 @@
 import express from 'express'
 import { ApolloServer, gql } from 'apollo-server-express'
 
-import { PORT } from './utils/constants'
+import { PORT } from './helpers/constants'
 
 async function startApolloServer() {
   // Construct a schema, using GraphQL schema language
