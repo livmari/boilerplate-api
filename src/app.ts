@@ -1,5 +1,7 @@
-const express = require('express')
-const { ApolloServer, gql } = require('apollo-server-express')
+import express from 'express'
+import { ApolloServer, gql } from 'apollo-server-express'
+
+import { PORT } from './utils/constants'
 
 async function startApolloServer() {
   // Construct a schema, using GraphQL schema language
@@ -22,8 +24,10 @@ async function startApolloServer() {
   const app = express()
   server.applyMiddleware({ app })
 
-  await app.listen({ port: 4000 }, () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  await app.listen({ port: PORT }, () =>
+    console.log(
+      `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+    )
   )
 
   return { server, app }
