@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "boilerplate-backend",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -20,5 +20,8 @@
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
     "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "apollo-server-express": "^3.0.1"
   }
 }
